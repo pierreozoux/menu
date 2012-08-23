@@ -41,4 +41,28 @@ module Menu
     end
     result
   end
+
+  def unic_run(lines=ARGV)
+    lines = $stdin.read.split("\n") if !$stdin.tty?
+    unic_prompt(lines)
+    answer = ask
+    puts unic_answer(lines, answer)
+  end
+
+  def unic_answer(array, input)
+    if input[/(\d+)/]
+      index = $1.to_i - 1
+      return array[index] if array[index]
+    else
+      abort("`#{input}' is an invalid choice.")
+    end
+  end
+
+  def unic_prompt(lines)
+    ljust_size = lines.size.to_s.size + 1
+    lines.each_with_index {|obj,i|
+      puts "#{i+1}.".ljust(ljust_size) + " " +obj
+    }
+    print "\nSpecify your choice\nChoose: "
+  end
 end
