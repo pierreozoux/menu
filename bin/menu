@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require_relative '../lib/menu.rb'
+require 'menu'
 Menu.unic_run
